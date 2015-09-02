@@ -99,7 +99,7 @@ def iframe():
     active = [u for u in users if u["presence"] == "active"]
 
     return render_template("iframe.html",
-        largs="large" if "large" in request.args.keys() else "",
+        large="slack-btn-large" if "large" in request.args.keys() else "",
         users_active=len(active),
         users_total=len(users))
 
