@@ -1,0 +1,228 @@
+<span class="slack-button "><a href="/" target="_blank" class="slack-btn"><span class="slack-ico"></span><span class="slack-text">Slack</span></a><a href="/" target="_blank" class="slack-count">{{ users_active }}/{{ users_total }}</a><style>
+/*
+  CSS from: https://github.com/mdo/github-buttons
+  Copyright 2014-2015 Mark Otto. Released under Apache 2.0.
+*/
+
+body, html {
+  background: transparent;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font: bold 11px/14px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  overflow: hidden;
+}
+.slack-button {
+  height: 20px;
+  overflow: hidden;
+  display: inline-block;
+}
+.slack-btn,
+.slack-count,
+.slack-ico {
+  float: left;
+}
+.slack-btn,
+.slack-count {
+  padding: 2px 5px 2px 4px;
+  color: #333;
+  text-decoration: none;
+  text-shadow: 0 1px 0 #fff;
+  white-space: nowrap;
+  cursor: pointer;
+  border-radius: 3px;
+  transition: background-color 200ms ease-in;
+}
+.slack-btn {
+  background-color: #eee;
+  background-image: -moz-linear-gradient(#fcfcfc, #eee);
+  background-image: -webkit-linear-gradient(#fcfcfc, #eee);
+  background-image: linear-gradient(#fcfcfc, #eee);
+  background-repeat: no-repeat;
+  border: 1px solid #d5d5d5;
+}
+.slack-btn:hover,
+.slack-btn:focus {
+  text-decoration: none;
+  background-color: #ddd;
+  background-image: -moz-linear-gradient(#eee, #ddd);
+  background-image: -webkit-linear-gradient(#eee, #ddd);
+  background-image: linear-gradient(#eee, #ddd);
+  border-color: #ccc;
+}
+.slack-btn:active {
+  background-image: none;
+  background-color: #dcdcdc;
+  border-color: #b5b5b5;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+}
+.slack-ico {
+  width: 14px;
+  height: 14px;
+  margin-right: 4px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+.slack-count {
+  position: relative;
+  display: block;
+  margin-left: 4px;
+  background-color: #fafafa;
+  border: 1px solid #d4d4d4;
+}
+.slack-count:hover,
+.slack-count:focus {
+  color: #4183C4;
+}
+.slack-count:before,
+.slack-count:after {
+  content: '';
+  position: absolute;
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  transition: border-color 200ms ease-in;
+}
+.slack-count:before {
+  top: 50%;
+  left: -3px;
+  margin-top: -4px;
+  border-width: 4px 4px 4px 0;
+  border-right-color: #fafafa;
+}
+.slack-count:after {
+  top: 50%;
+  left: -4px;
+  z-index: -1;
+  margin-top: -5px;
+  border-width: 5px 5px 5px 0;
+  border-right-color: #d4d4d4;
+}
+
+.slack-count.anim {
+  background-color: yellow;
+}
+.slack-count.anim:before {
+  border-right-color: yellow;
+}
+
+.slack-btn-large {
+  height: 30px;
+}
+.slack-btn-large .slack-btn,
+.slack-btn-large .slack-count {
+  padding: 3px 10px 3px 8px;
+  font-size: 16px;
+  line-height: 22px;
+  border-radius: 4px;
+}
+.slack-btn-large .slack-ico {
+  width: 20px;
+  height: 20px;
+}
+.slack-btn-large .slack-count {
+  margin-left: 6px;
+}
+.slack-btn-large .slack-count:before {
+  left: -5px;
+  margin-top: -6px;
+  border-width: 6px 6px 6px 0;
+}
+.slack-btn-large .slack-count:after {
+  left: -6px;
+  margin-top: -7px;
+  border-width: 7px 7px 7px 0;
+}
+</style><style>.slack-ico{background-image:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+Cjxzdmcgd2lkdGg9IjExOHB4IiBoZWlnaHQ9IjExOHB4IiB2aWV3Qm94PSIwIDAgMTE4IDExOCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+CiAgICA8IS0tIEdlbmVyYXRvcjogU2tldGNoIDMuMS4xICg4NzYxKSAtIGh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaCAtLT4KICAgIDx0aXRsZT5Hcm91cDwvdGl0bGU+CiAgICA8ZGVzYz5DcmVhdGVkIHdpdGggU2tldGNoLjwvZGVzYz4KICAgIDxkZWZzPjwvZGVmcz4KICAgIDxnIGlkPSJQYWdlLTEiIHN0cm9rZT0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIxIiBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHNrZXRjaDp0eXBlPSJNU1BhZ2UiPgogICAgICAgIDxnIGlkPSJBcnRib2FyZC0xIiBza2V0Y2g6dHlwZT0iTVNBcnRib2FyZEdyb3VwIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtNDIuMDAwMDAwLCAtNDcuMDAwMDAwKSI+CiAgICAgICAgICAgIDxnIGlkPSJHcm91cCIgc2tldGNoOnR5cGU9Ik1TTGF5ZXJHcm91cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNDIuMDAwMDAwLCA0OC4wMDAwMDApIj4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik0xMC4yNTgsNjEuODU5IEM1Ljg2Myw2MS44OTIgMi4xNCw1OS4yNzMgMC43NjgsNTUuMTg2IEMwLjcxNSw1NS4wMjcgMC42NjksNTQuODcyIDAuNjI1LDU0LjcyIEMtMC44NzEsNDkuNDg0IDIuMDMsNDQuMDA4IDcuMjMsNDIuMjU1IEw5MC42MTMsMTQuMzIgQzkxLjYyNywxNC4wMjkgOTIuNjQ4LDEzLjg4MSA5My42NTksMTMuODc0IEM5OC4xNywxMy44MzggMTAxLjk5NiwxNi41MTUgMTAzLjQwMywyMC42OSBMMTAzLjUyNywyMS4wOTMgQzEwNS4wODYsMjYuNTQ1IDEwMS4yMTEsMzEuNDEzIDk2LjU2OCwzMi45NzMgQzk2LjU2NCwzMi45NzUgOTUuNzIxLDMzLjI2MiAxMy42NDYsNjEuMjgyIEMxMi41MzUsNjEuNjU4IDExLjM5Niw2MS44NDkgMTAuMjU4LDYxLjg1OSIgaWQ9IkZpbGwtOSIgZmlsbD0iIzcwQ0FEQiIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTI0LjE1NywxMDIuODY3IEMxOS43MjksMTAyLjg5OSAxNS45OTIsMTAwLjMxNyAxNC42MzYsOTYuMjg5IEMxNC41ODYsOTYuMTM0IDE0LjUzNyw5NS45NzkgMTQuNDk0LDk1LjgyNSBDMTIuOTc3LDkwLjUyNyAxNS44NzQsODQuOTk0IDIxLjA5LDgzLjIzNyBMMTA0LjQ3OCw1NS4wNDUgQzEwNS41NTQsNTQuNjg2IDEwNi42NjcsNTQuNSAxMDcuNzg1LDU0LjQ5MSBDMTEyLjIyNyw1NC40NTcgMTE2LjEyOSw1Ny4xNyAxMTcuNTA2LDYxLjI0NSBMMTE3LjYzNCw2MS42NyBDMTE4LjQzOCw2NC40ODQgMTE3Ljk2Myw2Ny42NTEgMTE2LjM2Myw3MC4xNDggQzExNS4xNjgsNzIuMDA3IDExMS40MDQsNzMuNjQyIDExMS40MDQsNzMuNjQyIEwyNy42OTgsMTAyLjI2MSBDMjYuNTMzLDEwMi42NTEgMjUuMzQzLDEwMi44NTYgMjQuMTU3LDEwMi44NjciIGlkPSJGaWxsLTE2IiBmaWxsPSIjRTAxNzY1IiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNOTMuNTcyLDEwMy4wNDMgQzg5LjEyNSwxMDMuMDc5IDg1LjE4NiwxMDAuMjcyIDgzLjc3LDk2LjA2NyBMNTUuOTQsMTMuNDAyIEw1NS44MDEsMTIuOTM3IEM1NC4yOTQsNy42NjcgNTcuMTkyLDIuMTY4IDYyLjM5MSwwLjQxNSBDNjMuNDMsMC4wNjUgNjQuNTA2LC0wLjExOCA2NS41ODgsLTAuMTI3IEM2Ny4xOTYsLTAuMTM5IDY4Ljc1MiwwLjIyMyA3MC4yMTcsMC45NDcgQzcyLjY2NywyLjE2NyA3NC41LDQuMjY3IDc1LjM3NSw2Ljg2IEwxMDMuMjAzLDg5LjUxOCBMMTAzLjI4NCw4OS43ODMgQzEwNC44NDYsOTUuMjU2IDEwMS45NTMsMTAwLjc1OSA5Ni43NTYsMTAyLjUwOSBDOTUuNzI1LDEwMi44NTQgOTQuNjUzLDEwMy4wMzUgOTMuNTcyLDEwMy4wNDMiIGlkPSJGaWxsLTE3IiBmaWxsPSIjRThBNzIzIiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNNTIuMjA1LDExNi45NjkgQzQ3Ljc1OCwxMTcuMDAzIDQzLjgxNiwxMTQuMTk3IDQyLjM5OCwxMDkuOTg2IEwxNC41NzUsMjcuMzIzIEMxNC41MjcsMjcuMTcgMTQuNDgsMjcuMDIgMTQuNDM1LDI2Ljg2MyBDMTIuOTMxLDIxLjU5MyAxNS44MjEsMTYuMDkzIDIxLjAxOCwxNC4zNCBDMjIuMDUzLDEzLjk5NSAyMy4xMjQsMTMuODE0IDI0LjIwNSwxMy44MDUgQzI4LjY1MiwxMy43NzEgMzIuNTkyLDE2LjU3NyAzNC4wMSwyMC43ODQgTDYxLjgzNCwxMDMuNDQ5IEM2MS44ODYsMTAzLjU5NSA2MS45MzMsMTAzLjc1MyA2MS45NzUsMTAzLjkwNiBDNjMuNDgyLDEwOS4xNzkgNjAuNTksMTE0LjY4MiA1NS4zODYsMTE2LjQzNSBDNTQuMzUzLDExNi43OCA1My4yODQsMTE2Ljk2IDUyLjIwNSwxMTYuOTY5IiBpZD0iRmlsbC0xOCIgZmlsbD0iIzNFQjg5MCIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTc5Ljg1Miw4NC40MjkgTDk5LjI1Nyw3Ny43OTQgTDkyLjkxNCw1OC45NTUgTDczLjQ4Niw2NS41MjIgTDc5Ljg1Miw4NC40MjkiIGlkPSJGaWxsLTE5IiBmaWxsPSIjQ0MxRjI3IiBza2V0Y2g6dHlwZT0iTVNTaGFwZUdyb3VwIj48L3BhdGg+CiAgICAgICAgICAgICAgICA8cGF0aCBkPSJNMzguNTQ5LDk4LjU1MSBMNTcuOTUyLDkxLjkxNyBMNTEuNTYyLDcyLjkzNSBMMzIuMTM4LDc5LjUwMiBMMzguNTQ5LDk4LjU1MSIgaWQ9IkZpbGwtMjAiIGZpbGw9IiMzNjEyMzgiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4KICAgICAgICAgICAgICAgIDxwYXRoIGQ9Ik02Ni4wMzcsNDMuMzk2IEM3NC43NjIsNDAuNDE4IDgwLjk5NCwzOC4yOSA4NS40NDQsMzYuNzcxIEw3OS4xNzYsMTguMTUxIEw1OS43MzIsMjQuNjY1IEw2Ni4wMzcsNDMuMzk2IiBpZD0iRmlsbC0yMSIgZmlsbD0iIzY1ODYzQSIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgICAgICAgICAgPHBhdGggZD0iTTI0LjczLDU3LjQ5OCBDMzEuODkxLDU1LjA1NCAzOC4zMzQsNTIuODU0IDQ0LjEzNyw1MC44NzMgTDM3Ljc5MSwzMi4wMTcgTDE4LjM0OCwzOC41MyBMMjQuNzMsNTcuNDk4IiBpZD0iRmlsbC0yMiIgZmlsbD0iIzFBOTM3RCIgc2tldGNoOnR5cGU9Ik1TU2hhcGVHcm91cCI+PC9wYXRoPgogICAgICAgICAgICA8L2c+CiAgICAgICAgPC9nPgogICAgPC9nPgo8L3N2Zz4=)}</style><script>
+      data = {};
+      data.total = 198;
+      data.active = 19;
+    </script><script>/*global io,data*/
+
+(function(){
+
+  // give up and resort to `target=_blank`
+  // if we're not modern enough
+  if (!document.body.getBoundingClientRect
+   || !document.body.querySelectorAll
+   || !window.postMessage) {
+    return;
+  }
+
+  // the id for the script we capture
+  var id;
+
+  // listen on setup event from the parent
+  // to set up the id
+  window.addEventListener('message', function onmsg(e){
+    if (/^slackin:/.test(e.data)) {
+      id = e.data.replace(/^slackin:/, '');
+      document.body.addEventListener('click', function(ev){
+        var el = ev.target;
+        while (el && 'A' != el.nodeName) el = el.parentNode;
+        if (el && '_blank' == el.target) {
+          ev.preventDefault();
+          parent.postMessage('slackin-click:' + id, '*');
+        }
+      });
+      window.removeEventListener('message', onmsg);
+
+      // notify initial width
+      refresh();
+    }
+  });
+
+  // notify parent about current width
+  var button = document.querySelector('.slack-button');
+  var lastWidth;
+  function refresh(){
+    var width = button.getBoundingClientRect().width;
+    if (top != window && window.postMessage) {
+      var but = document.querySelector('.slack-button');
+      var width = Math.ceil(but.getBoundingClientRect().width);
+      if (lastWidth != width) {
+        lastWidth = width;
+        parent.postMessage('slackin-width:' + id + ':' + width, '*');
+      }
+    }
+  }
+
+  // initialize realtime events asynchronously
+  var script = document.createElement('script');
+  script.src = 'https://cdn.socket.io/socket.io-1.3.2.js';
+  script.onload = function(){
+    var socket = io();
+    var count = document.getElementsByClassName('slack-count')[0];
+
+    socket.on('data', function(users){
+      for (var i in users) update(i, users[i]);
+    });
+    socket.on('total', function(n){ update('total', n) });
+    socket.on('active', function(n){ update('active', n) });
+
+    var anim;
+    function update(key, n) {
+      if (n != data[key]) {
+        data[key] = n;
+        var str = '';
+        if (data.active) str = data.active + '/';
+        if (data.total) str += data.total;
+        if (!str.length) str = '–';
+        if (anim) clearTimeout(anim);
+        count.innerHTML = str;
+        count.className = 'slack-count anim';
+        anim = setTimeout(function(){
+          count.className = 'slack-count';
+        }, 200);
+        refresh();
+      }
+    }
+  };
+  document.body.appendChild(script);
+
+})();
+</script></span>

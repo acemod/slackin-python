@@ -91,6 +91,18 @@ def badge_js():
     return app.send_static_file("badge.js") 
 
 
+@app.route("/iframe")
+def iframe():
+    team, users = get_data()
+
+    users = [u for u in users if not u["is_bot"] and not u["deleted"]]
+    active = [u for u in users if u["presence"] == "active"]
+
+    return render_template("iframe.html",
+        users_active=len(active),
+        users_total=len(users))
+
+
 @app.route("/badge.svg")
 def badge_svg():
     _, users = get_data()
