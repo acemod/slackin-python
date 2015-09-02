@@ -31,15 +31,14 @@ import uuid
 import requests
 import docopt
 
-from flask import Flask, render_template, request, send_from_directory
+from flask import Flask, render_template, request, send_from_directory, make_response
 from werkzeug.contrib.cache import SimpleCache
 
 cache = SimpleCache()
 app = Flask(__name__, static_url_path="/static")
 
 
-@app.route("/")
-def index():
+def get_data():
     team = cache.get("team")
     if team is None:
         print("==> Updating team data ...")
@@ -60,6 +59,13 @@ def index():
         assert j["ok"]
         users = j["members"]
         cache.set("users", users, timeout=(app.config["interval"] / 1000))
+
+    return team, users
+
+
+@app.route("/")
+def index():
+    team, users = get_data()
 
     users = [u for u in users if not u["is_bot"] and not u["deleted"]]
     active = [u for u in users if u["presence"] == "active"]
@@ -83,6 +89,34 @@ def invite():
 @app.route("/slackin.js")
 def badge_js():
     return app.send_static_file("badge.js") 
+
+
+@app.route("/badge.svg")
+def badge_svg():
+    _, users = get_data()
+
+    users = [u for u in users if not u["is_bot"] and not u["deleted"]]
+    active = [u for u in users if u["presence"] == "active"]
+    users, active = len(users), len(active)
+
+    if active > 0:
+        value = "{}/{}".format(active, users)
+    else:
+        value = str(users) if users > 0 else "-"
+
+    left_width = 47
+    right_width = 12 + len(value) * 7
+
+    svg = render_template('badge.svg',
+        value=value,
+        left_width=left_width,
+        right_width=right_width,
+        total_width=(left_width + right_width),
+        left_x=round(left_width / 2),
+        right_x=round(right_width / 2) + left_width)
+    response = make_response(svg)
+    response.content_type = 'image/svg+xml'
+    return response
 
 
 @app.route("/socket.io/")

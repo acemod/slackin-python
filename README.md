@@ -37,5 +37,4 @@ Options:
 Things that aren't implemented right now:
 
 - Live Updates
-- SVG Badge
 - Channel Limitation
