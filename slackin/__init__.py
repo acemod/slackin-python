@@ -104,6 +104,19 @@ def iframe():
         users_total=len(users))
 
 
+@app.route("/iframe/dialog")
+def dialog():
+    team, users = get_data()
+
+    users = [u for u in users if not u["is_bot"] and not u["deleted"]]
+    active = [u for u in users if u["presence"] == "active"]
+
+    return render_template("dialog.html",
+        subdomain=team["domain"],
+        users_active=len(active),
+        users_total=len(users))
+
+
 @app.route("/badge.svg")
 def badge_svg():
     _, users = get_data()
