@@ -79,6 +79,8 @@ def index():
 
 @app.route("/invite", methods=["POST"])
 def invite():
+    if "@" not in request.json["email"]:
+        return "missing email", 400
     r = requests.post("https://slack.com/api/users.admin.invite", data={
         "token": app.config["token"],
         "email": request.json["email"]})
