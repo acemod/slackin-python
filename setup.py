@@ -25,7 +25,7 @@ setup(
     long_description = read("README.md"),
     license = "MIT",
     keywords = "",
-    url = "https://github.com/KoffeinFlummi/slackin-python",
+    url = "https://github.com/acemod/slackin-python",
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.3",
