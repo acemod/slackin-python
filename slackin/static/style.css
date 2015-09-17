@@ -2,7 +2,7 @@
     width:300px;
     margin:200px auto;
     text-align:center;
-    font-family:"Helvetica Neue",Helvetica,Arial
+    font-family: "Open Sans","Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
 }
 
 @media (max-width: 500px) {
@@ -72,8 +72,7 @@ button {
     color:#fff;
     font-weight:700;
     border-width:0;
-    background:#E01563;
-    text-transform:uppercase;
+    background:#ba2619;
     cursor:pointer;
     appearence:none;
     -webkit-appearence:none;
@@ -119,6 +118,11 @@ form {
     margin-bottom:0
 }
 
+input:focus:invalid {
+    border: 1px solid red;
+    -moz-box-shadow: none;
+}
+
 input {
     color:#9B9B9B;
     border:1px solid #D6D6D6
@@ -131,7 +135,7 @@ input:focus {
 }
 
 .active {
-    color:#E01563
+    color:#ba2619;
 }
 
 footer {
