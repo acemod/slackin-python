@@ -67,7 +67,7 @@ def get_data():
 def index():
     team, users = get_data()
 
-    users = [u for u in users if not u["is_bot"] and not u["deleted"]]
+    users = [u for u in users if not u.get("is_bot", False) and not u["deleted"]]
     active = [u for u in users if u["presence"] == "active"]
 
     return render_template("index.html",
