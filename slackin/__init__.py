@@ -97,7 +97,7 @@ def badge_js():
 def iframe():
     team, users = get_data()
 
-    users = [u for u in users if not u["is_bot"] and not u["deleted"]]
+    users = [u for u in users if not u.get("is_bot", False) and not u["deleted"]]
     active = [u for u in users if u["presence"] == "active"]
 
     return render_template("iframe.html",
@@ -110,7 +110,7 @@ def iframe():
 def dialog():
     team, users = get_data()
 
-    users = [u for u in users if not u["is_bot"] and not u["deleted"]]
+    users = [u for u in users if not u.get("is_bot", False) and not u["deleted"]]
     active = [u for u in users if u["presence"] == "active"]
 
     return render_template("dialog.html",
@@ -123,7 +123,7 @@ def dialog():
 def badge_svg():
     _, users = get_data()
 
-    users = [u for u in users if not u["is_bot"] and not u["deleted"]]
+    users = [u for u in users if not u.get("is_bot", False) and not u["deleted"]]
     active = [u for u in users if u["presence"] == "active"]
     users, active = len(users), len(active)
 
