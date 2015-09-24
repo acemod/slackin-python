@@ -27,6 +27,7 @@ import json
 import time
 import copy
 import uuid
+import threading
 
 import requests
 import docopt
@@ -38,43 +39,46 @@ cache = SimpleCache()
 app = Flask(__name__, static_url_path="/static")
 
 
-def get_data():
-    team = cache.get("team")
-    if team is None:
-        print("==> Updating team data ...")
-        r = requests.get("https://slack.com/api/team.info", params={
-            "token": app.config["token"]})
-        j = r.json()
+def update_data():
+    print("==> Updating team data ...")
+    r = requests.get("https://slack.com/api/team.info", params={
+        "token": app.config["token"]})
+    j = r.json()
+    try:
         assert j["ok"]
+    except AssertionError:
+        print("    !!! Failed to update team data.")
+    else:
         team = j["team"]
-        cache.set("team", team, timeout=(app.config["interval"] / 1000))
+        cache.set("team", team)
 
-    users = cache.get("users")
-    if users is None:
-        print("==> Updating user data ...")
-        r = requests.get("https://slack.com/api/users.list", params={
-            "token": app.config["token"],
-            "presence": 1})
-        j = r.json()
+    print("==> Updating user data ...")
+    r = requests.get("https://slack.com/api/users.list", params={
+        "token": app.config["token"],
+        "presence": 1})
+    j = r.json()
+    try:
         assert j["ok"]
-        users = j["members"]
-        cache.set("users", users, timeout=(app.config["interval"] / 1000))
+    except AssertionError:
+        print("    !!! Failed to update user data.")
+    else:
+        users = [u for u in j["members"] if not u.get("is_bot", False) and not u["deleted"]]
+        cache.set("users_total", users)
 
-    return team, users
+        active = [u for u in users if u["presence"] == "active"]
+        cache.set("users_active", active)
+
+    threading.Timer(app.config["interval"] / 1000, update_data).start()
 
 
 @app.route("/")
 def index():
-    team, users = get_data()
-
-    users = [u for u in users if not u.get("is_bot", False) and not u["deleted"]]
-    active = [u for u in users if u["presence"] == "active"]
-
+    team = cache.get("team")
     return render_template("index.html",
         subdomain=team["domain"],
         logo=team["icon"]["image_132"],
-        users_active=len(active),
-        users_total=len(users))
+        users_active=len(cache.get("users_active")),
+        users_total=len(cache.get("users_total")))
 
 
 @app.route("/invite", methods=["POST"])
@@ -95,37 +99,25 @@ def badge_js():
 
 @app.route("/iframe")
 def iframe():
-    team, users = get_data()
-
-    users = [u for u in users if not u.get("is_bot", False) and not u["deleted"]]
-    active = [u for u in users if u["presence"] == "active"]
-
     return render_template("iframe.html",
         large="slack-btn-large" if "large" in request.args.keys() else "",
-        users_active=len(active),
-        users_total=len(users))
+        users_active=len(cache.get("users_active")),
+        users_total=len(cache.get("users_total")))
 
 
 @app.route("/iframe/dialog")
 def dialog():
-    team, users = get_data()
-
-    users = [u for u in users if not u.get("is_bot", False) and not u["deleted"]]
-    active = [u for u in users if u["presence"] == "active"]
-
+    team = cache.get("team")
     return render_template("dialog.html",
         subdomain=team["domain"],
-        users_active=len(active),
-        users_total=len(users))
+        users_active=len(cache.get("users_active")),
+        users_total=len(cache.get("users_total")))
 
 
 @app.route("/badge.svg")
 def badge_svg():
-    _, users = get_data()
-
-    users = [u for u in users if not u.get("is_bot", False) and not u["deleted"]]
-    active = [u for u in users if u["presence"] == "active"]
-    users, active = len(users), len(active)
+    users = len(cache.get("users_total"))
+    active = len(cache.get("users_active"))
 
     if active > 0:
         value = "{}/{}".format(active, users)
@@ -167,4 +159,5 @@ def main():
     #app.config["channels"] = args["--channels"]
     # also not implemented because i cannot be arsed
 
+    update_data()
     app.run(host="0.0.0.0", port=int(args["--port"]), debug=os.environ.get("DEBUG"))
