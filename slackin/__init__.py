@@ -41,25 +41,25 @@ app = Flask(__name__, static_url_path="/static")
 
 def update_data():
     print("==> Updating team data ...")
-    r = requests.get("https://slack.com/api/team.info", params={
-        "token": app.config["token"]})
-    j = r.json()
     try:
+        r = requests.get("https://slack.com/api/team.info", params={
+            "token": app.config["token"]})
+        j = r.json()
         assert j["ok"]
-    except AssertionError:
+    except:
         print("    !!! Failed to update team data.")
     else:
         team = j["team"]
         cache.set("team", team)
 
     print("==> Updating user data ...")
-    r = requests.get("https://slack.com/api/users.list", params={
-        "token": app.config["token"],
-        "presence": 1})
-    j = r.json()
     try:
+        r = requests.get("https://slack.com/api/users.list", params={
+            "token": app.config["token"],
+            "presence": 1})
+        j = r.json()
         assert j["ok"]
-    except AssertionError:
+    except:
         print("    !!! Failed to update user data.")
     else:
         users = [u for u in j["members"] if not u.get("is_bot", False) and not u["deleted"]]
