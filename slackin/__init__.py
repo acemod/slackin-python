@@ -137,7 +137,7 @@ def badge_svg():
             "flat-square": "badge_flat-square.svg"
         }
         template = templates[request.args.get("style", "plastic")]
-    except IndexError:
+    except KeyError:
         template = "badge.svg"
 
     svg = html_minify(render_template(template,
