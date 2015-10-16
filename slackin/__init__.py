@@ -134,7 +134,7 @@ def badge_svg():
         templates = {
             "plastic": "badge.svg",
             "flat": "badge_flat.svg",
-            "flat-squared": "badge_flat-squared.svg"
+            "flat-square": "badge_flat-square.svg"
         }
         template = templates[request.args.get("style", "plastic")]
     except IndexError:
