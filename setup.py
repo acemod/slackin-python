@@ -18,7 +18,7 @@ setup(
     include_package_data = True,
     zip_safe = False,
     scripts = ["scripts/slackin"],
-    install_requires = ["requests", "docopt", "flask"],
+    install_requires = ["requests", "docopt", "flask", "django-htmlmin"],
     author = "Felix \"KoffeinFlummi\" Wiegand",
     author_email = "koffeinflummi@gmail.com",
     description = "Python port of the slackin Slack auto-inviter",

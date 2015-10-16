@@ -34,6 +34,7 @@ import docopt
 
 from flask import Flask, render_template, request, send_from_directory, make_response
 from werkzeug.contrib.cache import SimpleCache
+from htmlmin.minify import html_minify
 
 cache = SimpleCache()
 app = Flask(__name__, static_url_path="/static")
@@ -74,11 +75,11 @@ def update_data():
 @app.route("/")
 def index():
     team = cache.get("team")
-    return render_template("index.html",
+    return html_minify(render_template("index.html",
         subdomain=team["domain"],
         logo=team["icon"]["image_132"],
         users_active=len(cache.get("users_active")),
-        users_total=len(cache.get("users_total")))
+        users_total=len(cache.get("users_total"))))
 
 
 @app.route("/invite", methods=["POST"])
@@ -99,19 +100,19 @@ def badge_js():
 
 @app.route("/iframe")
 def iframe():
-    return render_template("iframe.html",
+    return html_minify(render_template("iframe.html",
         large="slack-btn-large" if "large" in request.args.keys() else "",
         users_active=len(cache.get("users_active")),
-        users_total=len(cache.get("users_total")))
+        users_total=len(cache.get("users_total"))))
 
 
 @app.route("/iframe/dialog")
 def dialog():
     team = cache.get("team")
-    return render_template("dialog.html",
+    return html_minify(render_template("dialog.html",
         subdomain=team["domain"],
         users_active=len(cache.get("users_active")),
-        users_total=len(cache.get("users_total")))
+        users_total=len(cache.get("users_total"))))
 
 
 @app.route("/badge.svg")
@@ -119,21 +120,31 @@ def badge_svg():
     users = len(cache.get("users_total"))
     active = len(cache.get("users_active"))
 
+    label = request.args.get("label", "slack")
+
     if active > 0:
         value = "{}/{}".format(active, users)
     else:
         value = str(users) if users > 0 else "-"
 
-    left_width = 47
-    right_width = 12 + len(value) * 7
+    left_width = 8 + 7 * len(label)
+    right_width = 8 + 7 * len(value)
 
-    svg = render_template('badge.svg',
+    try:
+        templates = {
+            "plastic": "badge.svg",
+            "flat": "badge_flat.svg",
+            "flat-squared": "badge_flat-squared.svg"
+        }
+        template = templates[request.args.get("style", "plastic")]
+    except IndexError:
+        template = "badge.svg"
+
+    svg = html_minify(render_template(template,
+        label=label,
         value=value,
         left_width=left_width,
-        right_width=right_width,
-        total_width=(left_width + right_width),
-        left_x=round(left_width / 2),
-        right_x=round(right_width / 2) + left_width)
+        right_width=right_width))
     response = make_response(svg)
     response.content_type = 'image/svg+xml'
     return response
