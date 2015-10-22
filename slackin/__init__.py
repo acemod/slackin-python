@@ -145,6 +145,8 @@ def badge_svg():
         value=value,
         left_width=left_width,
         right_width=right_width))
+    svg = svg.replace("<html><head></head><body>", "")
+    svg = svg.replace("</body></html>", "")
     response = make_response(svg)
     response.content_type = 'image/svg+xml'
     return response
