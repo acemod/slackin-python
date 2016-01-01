@@ -66,7 +66,7 @@ def update_data():
         users = [u for u in j["members"] if not u.get("is_bot", False) and not u["deleted"]]
         cache.set("users_total", users)
 
-        active = [u for u in users if u["presence"] == "active"]
+        active = [u for u in users if u.get("presence", "away") == "active"]
         cache.set("users_active", active)
 
     threading.Timer(app.config["interval"] / 1000, update_data).start()
