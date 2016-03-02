@@ -41,33 +41,36 @@ app = Flask(__name__, static_url_path="/static")
 
 
 def update_data():
-    print("==> Updating team data ...")
     try:
-        r = requests.get("https://slack.com/api/team.info", params={
-            "token": app.config["token"]})
-        j = r.json()
-        assert j["ok"]
-    except:
-        print("    !!! Failed to update team data.")
-    else:
-        team = j["team"]
-        cache.set("team", team)
+        print("==> Updating team data ...")
+        try:
+            r = requests.get("https://slack.com/api/team.info", params={
+                "token": app.config["token"]})
+            j = r.json()
+            assert j["ok"]
+        except:
+            print("    !!! Failed to update team data.")
+        else:
+            team = j["team"]
+            cache.set("team", team)
 
-    print("==> Updating user data ...")
-    try:
-        r = requests.get("https://slack.com/api/users.list", params={
-            "token": app.config["token"],
-            "presence": 1})
-        j = r.json()
-        assert j["ok"]
-    except:
-        print("    !!! Failed to update user data.")
-    else:
-        users = [u for u in j["members"] if not u.get("is_bot", False) and not u["deleted"]]
-        cache.set("users_total", users)
+        print("==> Updating user data ...")
+        try:
+            r = requests.get("https://slack.com/api/users.list", params={
+                "token": app.config["token"],
+                "presence": 1})
+            j = r.json()
+            assert j["ok"]
+        except:
+            print("    !!! Failed to update user data.")
+        else:
+            users = [u for u in j["members"] if not u.get("is_bot", False) and not u["deleted"]]
+            cache.set("users_total", users)
 
-        active = [u for u in users if u.get("presence", "away") == "active"]
-        cache.set("users_active", active)
+            active = [u for u in users if u.get("presence", "away") == "active"]
+            cache.set("users_active", active)
+    except BaseException as e:
+        print("!!! Exception in update_data: "+str(e))
 
     threading.Timer(app.config["interval"] / 1000, update_data).start()
 
