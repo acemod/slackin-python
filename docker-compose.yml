@@ -2,9 +2,10 @@ version: '2'
 services:
     slackin-python:
         build: .
+        restart: always
         ports:
             - "80:80"
         environment:
-        - SLACKIN_INTERVAL=30000
-        - SLACKIN_SUBDOMAIN=
-        - SLACKIN_APITOKEN=
+            - SLACKIN_INTERVAL=30000
+            - SLACKIN_SUBDOMAIN=
+            - SLACKIN_APITOKEN=
