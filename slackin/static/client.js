@@ -48,14 +48,6 @@ function invite(channel, email, fn){
   });
 }
 
-// realtime updates
-//var socket = io();
-//socket.on('data', function(users){
-//  for (var i in users) update(i, users[i]);
-//});
-//socket.on('total', function(n){ update('total', n) });
-//socket.on('active', function(n){ update('active', n) });
-
 function update(val, n, noanim){
   var el = document.querySelector('.' + val);
   if (n != el.innerHTML) {

@@ -155,13 +155,6 @@ def badge_svg():
     return response
 
 
-@app.route("/socket.io/")
-def socket():
-    return "", 501
-    # not implemented because i cannot be arsed
-    # also because flask_socketio doesn't support Py3
-
-
 def main():
     args = docopt.docopt(__doc__, version=VERSION)
     if args["--port"] is None:
