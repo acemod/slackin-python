@@ -1,0 +1,10 @@
+version: '2'
+services:
+    servermon:
+        build: .
+        ports:
+            - "80:80"
+        environment:
+        - SLACKIN_INTERVAL=30000
+        - SLACKIN_SUBDOMAIN=
+        - SLACKIN_APITOKEN=
